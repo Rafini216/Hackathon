@@ -3,7 +3,7 @@ const express = require('express');
 const next = require('next');
 const cors = require('cors');
 require('dotenv').config();
-const connectDB = require('./lib/mongodb');
+const connectDB = require('./lib/mongodb.js');
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
@@ -13,6 +13,11 @@ app.use(express.json());
 
 // Esta constante é relativa às coleções da tua base de dados e deves acrescentar mais se for o caso
 const Nome = require('./models/Nome');
+const User = require('./models/User');
+
+
+
+
 
 
 
@@ -29,28 +34,75 @@ app.get('/api/nomes', async (req, res) => {
   }
 });
 
-// POST /api/nomes - Adiciona um novo nome à coleção "nomes"
-app.post('/api/nomes', async (req, res) => {
+// POST /api/login
+app.post('/api/login',async (req, res) => {
   try {
-    const { nome } = req.body;
+  const { email, password } = req.body;
+  
+  if (!email){
+    res.status(400).json({ error: 'Email is required' });
+    return;
+  }
+  if (!password){
+    res.status(400).json({ error: 'Password is required' });
+    return;
+  }
+ 
+     const user = await User.findOne({ email, password });
     
-    if (!nome || !nome.trim()) {
-      return res.status(400).json({ erro: 'Nome é obrigatório' });
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password' });
     }
-
-    const novoNome = new Nome({ nome: nome.trim() });
-    const nomeSalvo = await novoNome.save();
-    res.status(201).json(nomeSalvo);
+    res.json({
+      success: true,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ erro: 'Este nome já existe' });
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Login failed' });
+  }
+})
+
+
+// POST /api/register
+app.post('/api/register', async (req, res) => {
+  try {
+    const { name, email, password, role } = req.body;
+    
+   
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists' });
     }
-    console.error('Erro ao criar nome:', error);
-    res.status(500).json({ erro: 'Erro interno do servidor' });
+    
+   
+    const newUser = new User({
+      name,
+      email,
+      password, 
+      role: role || 'user'
+    });
+    
+    const savedUser = await newUser.save();
+    
+    res.status(201).json({
+      success: true,
+      user: {
+        id: savedUser._id,
+        name: savedUser.name,
+        email: savedUser.email,
+        role: savedUser.role
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Registration failed' });
   }
 });
-
-
 
 // ===== INICIALIZAÇÃO DO SERVIDOR (também não se deve mexer)=====
 
@@ -62,7 +114,7 @@ const PORT = process.env.PORT || 3000;
 
 const iniciarServidor = async () => {
   try {
-    await connectDB();
+     await connectDB();
     await nextApp.prepare();
     app.listen(PORT, () => {
       console.log(`Servidor Next.js + Express a correr em http://localhost:${PORT}`);
@@ -74,3 +126,5 @@ const iniciarServidor = async () => {
 };
 
 iniciarServidor();
+
+
