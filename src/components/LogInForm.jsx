@@ -106,7 +106,7 @@ const StyledWrapper = styled.div`
 
   .button-submit {
     margin: 20px 0 10px 0;
-    background-color: #151717;
+    background-color: #1B4965;
     border: none;
     color: white;
     font-size: 15px;
@@ -118,7 +118,7 @@ const StyledWrapper = styled.div`
   }
 
   .button-submit:hover {
-    background-color: #252727;
+    background-color: #3892A8;
   }
 
   .p {
