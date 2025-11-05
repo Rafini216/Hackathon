@@ -1,5 +1,7 @@
-const nodemailer = require("nodemailer");
-const axios = require("axios");
+const axios = require('axios')
+const dotenv = require('dotenv')
+const nodemailer = require('nodemailer');
+dotenv.config()
 // === CONFIGURAÇÃO SMTP PERSONALIZADA ===
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -24,7 +26,7 @@ async function sendMeetingEmail(to, subject, html) {
     });
     console.log(`📧 Email enviado para ${to}: ${info.messageId}`);
   } catch (error) {
-    console.error(`❌ Erro ao enviar email para ${to}:`, error.message);
+
   }
 }
 
@@ -39,16 +41,22 @@ async function sendTelegramMessage(chatId, text) {
   }
 
   try {
-    await axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+    const response = await axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
       chat_id: chatId,
       text,
-      parse_mode: "html"
+      parse_mode: "HTML"
     });
-
-    console.log(`📲 Mensagem Telegram enviada para ${chatId}`);
-  } catch (error) {   
-     console.log(chatId);
-    console.log(text);
+    console.log('📲 Mensagem Telegram enviada para', response.data);
+    console.log('📲 Mensagem Telegram enviada para', chatId);
+    return response;
+  } catch (error) {
+    console.error('❌ Falha ao enviar Telegram:', error.message);
+        console.error(`❌ Erro ao enviar email para:`, error.message);
+        console.log("❌ Error Details:");
+    console.log("Status:", error.response?.status);
+    console.log("Status Text:", error.response?.statusText);
+    console.log("Data:", error.response?.data);
+    console.log("Config URL:", error.config?.url);
     console.error(`❌ Falha ao enviar Telegram:`, error.message);
   }
 }

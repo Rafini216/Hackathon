@@ -50,7 +50,7 @@ Confirma presença?
       );
 
       if (user) {
-        await sendTelegramMessage("-476792581", message);
+        await sendTelegramMessage("-4767925581", message);
       }
     }
 
