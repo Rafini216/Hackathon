@@ -1,0 +1,187 @@
+{
+    "users": [
+      {
+        "_id": "507f1f77bcf86cd799439011",
+        "name": "Ana Silva",
+        "email": "ana.silva@email.com",
+        "password": "$2b$10$exampleHash123",
+        "timezone": "America/Sao_Paulo",
+        "preferences": {
+          "avoidLate": true,
+          "preferredDays": ["segunda", "terça", "quarta"]
+        }
+      },
+      {
+        "_id": "507f1f77bcf86cd799439012",
+        "name": "Carlos Oliveira",
+        "email": "carlos.oliveira@email.com",
+        "password": "$2b$10$exampleHash456",
+        "timezone": "America/Sao_Paulo",
+        "preferences": {
+          "avoidLate": false,
+          "preferredDays": ["quinta", "sexta"]
+        }
+      },
+      {
+        "_id": "507f1f77bcf86cd799439013",
+        "name": "Mariana Santos",
+        "email": "mariana.santos@email.com",
+        "password": "$2b$10$exampleHash789",
+        "timezone": "UTC",
+        "preferences": {
+          "avoidLate": true,
+          "preferredDays": ["segunda", "quarta", "sexta"]
+        }
+      },
+      {
+        "_id": "507f1f77bcf86cd799439014",
+        "name": "João Pereira",
+        "email": "joao.pereira@email.com",
+        "password": "$2b$10$exampleHash012",
+        "timezone": "Europe/Lisbon",
+        "preferences": {
+          "avoidLate": false,
+          "preferredDays": ["terça", "quinta"]
+        }
+      }
+    ],
+    
+    "availabilities": [
+      {
+        "_id": "607f1f77bcf86cd799439021",
+        "userId": "507f1f77bcf86cd799439011",
+        "day": "segunda",
+        "start": "09:00",
+        "end": "12:00"
+      },
+      {
+        "_id": "607f1f77bcf86cd799439022",
+        "userId": "507f1f77bcf86cd799439011",
+        "day": "terça",
+        "start": "14:00",
+        "end": "18:00"
+      },
+      {
+        "_id": "607f1f77bcf86cd799439023",
+        "userId": "507f1f77bcf86cd799439012",
+        "day": "quarta",
+        "start": "10:00",
+        "end": "16:00"
+      },
+      {
+        "_id": "607f1f77bcf86cd799439024",
+        "userId": "507f1f77bcf86cd799439013",
+        "day": "segunda",
+        "start": "08:00",
+        "end": "11:00"
+      },
+      {
+        "_id": "607f1f77bcf86cd799439025",
+        "userId": "507f1f77bcf86cd799439014",
+        "day": "quinta",
+        "start": "13:00",
+        "end": "17:00"
+      }
+    ],
+    
+    "meetings": [
+      {
+        "_id": "707f1f77bcf86cd799439031",
+        "title": "Reunião de Planejamento",
+        "participants": [
+          "507f1f77bcf86cd799439011",
+          "507f1f77bcf86cd799439012",
+          "507f1f77bcf86cd799439013"
+        ],
+        "day": "segunda",
+        "start": "10:00",
+        "end": "11:00",
+        "status": "confirmed",
+        "responses": [
+          {
+            "userId": "507f1f77bcf86cd799439011",
+            "response": "yes"
+          },
+          {
+            "userId": "507f1f77bcf86cd799439012",
+            "response": "yes"
+          },
+          {
+            "userId": "507f1f77bcf86cd799439013",
+            "response": "pending"
+          }
+        ]
+      },
+      {
+        "_id": "707f1f77bcf86cd799439032",
+        "title": "Apresentação do Projeto",
+        "participants": [
+          "507f1f77bcf86cd799439011",
+          "507f1f77bcf86cd799439014"
+        ],
+        "day": "quinta",
+        "start": "15:00",
+        "end": "16:00",
+        "status": "pending",
+        "responses": [
+          {
+            "userId": "507f1f77bcf86cd799439011",
+            "response": "pending"
+          },
+          {
+            "userId": "507f1f77bcf86cd799439014",
+            "response": "yes"
+          }
+        ]
+      },
+      {
+        "_id": "707f1f77bcf86cd799439033",
+        "title": "Revisão de Metas",
+        "participants": [
+          "507f1f77bcf86cd799439012",
+          "507f1f77bcf86cd799439013"
+        ],
+        "day": "terça",
+        "start": "14:00",
+        "end": "15:00",
+        "status": "confirmed",
+        "responses": [
+          {
+            "userId": "507f1f77bcf86cd799439012",
+            "response": "yes"
+          },
+          {
+            "userId": "507f1f77bcf86cd799439013",
+            "response": "no"
+          }
+        ]
+      }
+    ],
+    
+    "authFlow": {
+      "login": {
+        "email": "ana.silva@email.com",
+        "password": "senha123"
+      },
+      "register": {
+        "name": "Novo Usuário",
+        "email": "novo.usuario@email.com",
+        "password": "senha456",
+        "timezone": "America/Sao_Paulo",
+        "preferences": {
+          "avoidLate": true,
+          "preferredDays": ["segunda", "quarta", "sexta"]
+        }
+      }
+    },
+    
+    "systemFlow": {
+      "1": "Usuário faz login/registro",
+      "2": "Usuário define sua disponibilidade nos dias/horários",
+      "3": "Usuário pode criar reuniões e convidar outros participantes",
+      "4": "Participantes recebem convite e respondem (yes/no)",
+      "5": "Sistema mostra horários compatíveis baseado nas disponibilidades",
+      "6": "Quando todos confirmam, reunião é marcada",
+      "7": "Status da reunião muda de 'pending' para 'confirmed'"
+    }
+  }
