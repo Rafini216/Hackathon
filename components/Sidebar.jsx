@@ -33,8 +33,8 @@ export default function Sidebar() {
 
   const menu = [
     { name: "Dashboard", path: "/Dashboard", icon: LayoutDashboard },
-    { name: "Participants", path: "/participants", icon: Users },
-    { name: "Meetings", path: "/meetings", icon: CalendarCheck },
+    { name: "Participantes", path: "/participants", icon: Users },
+    { name: "Reuniões", path: "/meetings", icon: CalendarCheck },
   ];
 
   const handleClose = () => {
@@ -88,7 +88,7 @@ export default function Sidebar() {
         }`}
       >
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
-          <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">MeetEasy</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2 flex items-center justify-center gap-2"> <img src="/logo.png" alt="Meeteasy Logo" className="w-8 h-8" />MeetEasy</h1>
           <button
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 transition-colors"

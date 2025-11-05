@@ -44,8 +44,11 @@ async function sendTelegramMessage(chatId, text) {
       text,
       parse_mode: "html"
     });
+
     console.log(`📲 Mensagem Telegram enviada para ${chatId}`);
-  } catch (error) {
+  } catch (error) {   
+     console.log(chatId);
+    console.log(text);
     console.error(`❌ Falha ao enviar Telegram:`, error.message);
   }
 }
