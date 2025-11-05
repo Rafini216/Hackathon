@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "nodemon server.js",
+    "dev:tunnel": "nodemon server.js & npx wait-on http://localhost:5000 && npx localtunnel --port 5000 --print-requests",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js",
-    "server": "nodemon server.js"
+    "start": "NODE_ENV=production node server.js",
+    "server": "nodemon server.js",
+    "tunnel": "npx localtunnel --port 5000 --subdomain meuapp"
   },
   "dependencies": {
     "axios": "^1.13.2",
@@ -14,6 +16,7 @@
     "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "localtunnel": "^2.0.2",
     "lucide-react": "^0.552.0",
     "mongodb": "^6.20.0",
     "mongoose": "^8.19.1",
